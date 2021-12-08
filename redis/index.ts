@@ -1,12 +1,10 @@
 import * as redis from "redis";
-import { RedisClient } from "../types/redis";
-
-const { REDIS_PORT, REDIS_HOST, REDIS_PASSWORD } = process.env;
+import { Props, RedisClient } from "../types/redis";
 
 class Redis implements RedisClient {
 	private client;
-	constructor() {
-		this.client = redis.createClient();
+	constructor(props: Props = {}) {
+		this.client = redis.createClient(props);
 		this.connectClient();
 	}
 	private async connectClient() {
@@ -32,4 +30,4 @@ class Redis implements RedisClient {
 	}
 }
 
-export default new Redis();
+export default Redis;

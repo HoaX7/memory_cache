@@ -6,3 +6,8 @@ export interface RedisClient {
     flushAll: () => void;
     keys: (pattern: string) => Promise<string[] | null>;
 }
+export type Props = {
+    password?: string;
+    username?: string;
+    url?: string;
+}
