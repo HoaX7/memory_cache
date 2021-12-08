@@ -1,0 +1,24 @@
+{
+  "name": "@hoax7/memory_cache",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node -r dotenv/config index.ts",
+    "build": "tsc -p .",
+    "Start": "node ."
+  },
+  "keywords": [],
+  "author": "HoaX7",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "redis": "^4.0.0"
+  }
+}
