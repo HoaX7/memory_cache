@@ -5,7 +5,7 @@ class Redis implements RedisClient {
 	private client;
 	constructor(props: Props = {}) {
 		this.client = redis.createClient(props);
-		this.connectClient();
+		this.connectClient().catch((e) => console.error("Unable to connect to redis: ", e));
 	}
 	private async connectClient() {
 		await this.client.connect();
