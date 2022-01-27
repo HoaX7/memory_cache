@@ -8,8 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node -r dotenv/config index.ts",
     "build": "tsc -p .",
-    "Start": "node ."
+    "start": "node ."
   },
+  "files": ["lib/**/*"],
   "keywords": [],
   "author": "HoaX7",
   "license": "ISC",
