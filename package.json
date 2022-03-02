@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node -r dotenv/config index.ts",
     "build": "tsc -p .",
-    "start": "node ."
+    "start": "node .",
+    "prepublish": "npm version patch"
   },
   "files": [
     "lib/**/*"
