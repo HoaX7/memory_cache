@@ -1,6 +1,6 @@
 {
   "name": "@hoax7/memory_cache",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -11,7 +11,9 @@
     "start": "node .",
     "publish": ""
   },
-  "files": ["lib/**/*"],
+  "files": [
+    "lib/**/*"
+  ],
   "keywords": [],
   "author": "HoaX7",
   "license": "ISC",
