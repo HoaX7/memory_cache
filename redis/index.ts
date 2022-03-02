@@ -5,10 +5,11 @@ class Redis implements RedisClient {
 	private client;
 	constructor(props: Props = {}) {
 		this.client = redis.createClient({
+			...props,
 			socket: {
 				reconnectStrategy: (retries) => {
 					if (retries === 3) {
-						return new Error("Unable to connect to redis")
+						return new Error("Unable to connect to redis: Connection Timedout")
 					}
 					console.log("Redis failed to connect, retrying after 5 seconds...")
 					return 5000;
@@ -16,7 +17,7 @@ class Redis implements RedisClient {
 				connectTimeout: 10000
 			}
 		});
-		this.connectClient().then(() => console.log("connected"))
+		this.connectClient()
 			.catch((e) => console.error("Unable to connect to redis: ", e));
 	}
 	private async connectClient() {
