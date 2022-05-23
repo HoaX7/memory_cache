@@ -47,6 +47,9 @@ class Redis implements RedisClient {
 	public decr(key: string) {
 		return this.client.decr(key)
 	}
+	public ttl(key: string) {
+		return this.client.ttl(key)
+	}
 }
 
 export default Redis;

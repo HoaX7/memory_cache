@@ -4,6 +4,7 @@ export interface RedisClient {
     del: (key: string) => Promise<number>;
     incr: (key: string) => Promise<number>;
     decr: (key: string) => Promise<number>;
+    ttl: (key: string) => Promise<number>;
     expire?: (key: string, ttl: number) => Promise<boolean>;
     flushAll?: () => void;
     keys?: (pattern: string) => Promise<string[] | null>;
