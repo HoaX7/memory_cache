@@ -41,6 +41,12 @@ class Redis implements RedisClient {
 	public keys(pattern: string = "*") {
 		return this.client.keys(pattern);
 	}
+	public incr(key: string) {
+		return this.client.incr(key)
+	}
+	public decr(key: string) {
+		return this.client.decr(key)
+	}
 }
 
 export default Redis;
