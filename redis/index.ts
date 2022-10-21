@@ -14,14 +14,15 @@ class Redis implements RedisClient {
 					console.log("Redis failed to connect, retrying after 5 seconds...")
 					return 5000;
 				},
-				connectTimeout: 10000
+				connectTimeout: 60000
 			}
 		});
-		this.connectClient()
-			.catch((e) => console.error("Unable to connect to redis: ", e));
+		this.connectClient();
 	}
 	private async connectClient() {
-		await this.client.connect();
+		return await this.client.connect()
+			.then(() => console.log("Redis connection successful"))
+			.catch((e) => console.error("Unable to connect to redis: ", e));
 	}
 	public get(key: string) {
 		return this.client.get(key);
