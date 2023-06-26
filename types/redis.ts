@@ -14,3 +14,7 @@ export type Props = {
     username?: string;
     url?: string;
 }
+export type SocketProps = {
+    host?: string;
+    port?: number;
+}

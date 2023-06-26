@@ -1,9 +1,9 @@
 import * as redis from "redis";
-import { Props, RedisClient } from "../types/redis";
+import { Props, RedisClient, SocketProps } from "../types/redis";
 
 class Redis implements RedisClient {
 	private client;
-	constructor(props: Props = {}) {
+	constructor(props: Props = {}, socketProps: SocketProps = {}) {
 		this.client = redis.createClient({
 			...props,
 			socket: {
@@ -14,15 +14,20 @@ class Redis implements RedisClient {
 					console.log("Redis failed to connect, retrying after 5 seconds...")
 					return 5000;
 				},
-				connectTimeout: 60000
-			}
+				connectTimeout: 60000,
+				...socketProps
+			},
 		});
 		this.connectClient();
 	}
 	private async connectClient() {
-		return await this.client.connect()
-			.then(() => console.log("Redis connection successful"))
-			.catch((e) => console.error("Unable to connect to redis: ", e));
+		try {
+			await this.client.connect();
+			console.log("Redis client connected and ready to use")
+		} catch (err) {
+			console.error("Unable to connect redis client", err)
+		}
+		return
 	}
 	public get(key: string) {
 		return this.client.get(key);
