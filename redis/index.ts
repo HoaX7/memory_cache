@@ -73,6 +73,9 @@ class Redis implements RedisClient {
 	public ttl(key: string) {
 		return this.client.ttl(key)
 	}
+	public setEx(key: string, value: string, ttl = 60) {
+		return this.client.setEx(key, ttl, value)
+	}
 	/**
 	 * Select specific DB.
 	 * redis has 16 dbs, indexed from 0 - 15.
