@@ -18,3 +18,10 @@ export type SocketProps = {
     host?: string;
     port?: number;
 }
+export type Options = {
+    configSet?: {
+        parameter: string;
+        key: string;
+    };
+    enablePubSub?: boolean;
+}

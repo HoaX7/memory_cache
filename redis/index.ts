@@ -1,9 +1,12 @@
 import * as redis from "redis";
-import { Props, RedisClient, SocketProps } from "../types/redis";
+import { Options, Props, RedisClient, SocketProps } from "../types/redis";
+import { PubSubListener } from "@node-redis/client/dist/lib/client/commands-queue";
 
 class Redis implements RedisClient {
 	private client;
-	constructor(props: Props = {}, socketProps: SocketProps = {}) {
+	private sub;
+	private options: Options = {}
+	constructor(props: Props = {}, socketProps: SocketProps = {}, options?: Options) {
 		this.client = redis.createClient({
 			...props,
 			socket: {
@@ -19,10 +22,24 @@ class Redis implements RedisClient {
 			},
 		});
 		this.connectClient();
+		if (options) {
+			this.options = options;
+		}
+		if (options?.enablePubSub) {
+			this.sub = this.client.duplicate()
+			this.sub.connect().then(() => {
+				console.log("PubSub client ready. Use 'client.subscribe(key)' to listen to events")
+			}).catch((err) => {
+				console.error("Unable to connect pubsub client", err)
+			})
+		}
 	}
 	private async connectClient() {
 		try {
 			await this.client.connect();
+			if (this.options?.configSet) {
+				this.client.configSet(this.options.configSet.parameter, this.options.configSet.key)
+			}
 			console.log("Redis client connected and ready to use")
 		} catch (err) {
 			console.error("Unable to connect redis client", err)
@@ -55,6 +72,27 @@ class Redis implements RedisClient {
 	}
 	public ttl(key: string) {
 		return this.client.ttl(key)
+	}
+	/**
+	 * Select specific DB.
+	 * redis has 16 dbs, indexed from 0 - 15.
+	 * Accepted options must be from 0 - 15.
+	 * 
+	 * CAUTION: If you change the selected db, all commands will start
+	 * setting values on the specified db.
+	 */
+	public selectDb(db: number) {
+		return this.client.select(db)
+	}
+	/**
+	 * Subscribe to key expiry events.
+	 * This method only works if 'enablePubSub' option is passed.
+	 */
+	public subscribe(key: string, listener: PubSubListener) {
+		if (!this.sub) {
+			throw new Error("PubSub has not been enabled. To enable PubSub you must set 'enablePubSub' option.")
+		}
+		this.sub.subscribe(key, listener)
 	}
 }
 
