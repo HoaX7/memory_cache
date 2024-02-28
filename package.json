@@ -1,6 +1,6 @@
 {
   "name": "@hoax7/memory_cache",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,8 +9,7 @@
     "dev": "ts-node -r dotenv/config index.ts",
     "build": "tsc -p .",
     "start": "node .",
-    "prepublish": "npm version patch",
-    "publish": "npm run build && npm run prepublish && npm publish --access public"
+    "prepublish": "npm version patch"
   },
   "files": [
     "lib/**/*"
