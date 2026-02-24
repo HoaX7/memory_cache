@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "./lib/cjs",
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./lib/types",
+    "sourceMap": true
+  },
+  "include": ["index.ts", "redis/**/*.ts", "types/**/*.ts", "env.d.ts"],
+  "exclude": ["lib", "node_modules", "test.ts", "test2.ts"]
+}

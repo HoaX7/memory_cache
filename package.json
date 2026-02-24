@@ -2,12 +2,24 @@
   "name": "@hoax7/memory_cache",
   "version": "1.0.24",
   "description": "",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.js",
+      "default": "./lib/cjs/index.js"
+    }
+  },
   "scripts": {
     "test": "ts-node -r dotenv/config test.ts",
     "dev": "ts-node -r dotenv/config index.ts",
-    "build": "tsc -p .",
+    "clean": "rm -rf lib",
+    "build:cjs": "tsc -p tsconfig.build.cjs.json",
+    "build:esm": "tsc -p tsconfig.build.esm.json",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && node scripts/write-esm-package-json.cjs",
     "start": "node .",
     "prepublish": "npm version patch"
   },
