@@ -21,7 +21,8 @@
     "build:esm": "tsc -p tsconfig.build.esm.json",
     "build": "npm run clean && npm run build:cjs && npm run build:esm && node scripts/write-esm-package-json.cjs",
     "start": "node .",
-    "prepublish": "npm version patch"
+    "prepublish": "npm version patch",
+    "publish": "npm publish --access public"
   },
   "files": [
     "lib/**/*"
